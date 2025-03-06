@@ -1,4 +1,4 @@
-package internal
+package text
 
 import (
 	"encoding/csv"

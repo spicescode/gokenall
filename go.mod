@@ -4,7 +4,7 @@ go 1.22
 
 toolchain go1.23.2
 
-replace github.com/spicescode/gokenall/internal => ./internal
+replace github.com/spicescode/gokenall => ../gokenall
 
 require (
 	github.com/oirik/gosubcommand v0.0.0-20181009132036-939dbbd624ef
