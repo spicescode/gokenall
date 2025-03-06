@@ -9,7 +9,7 @@ import (
 
 	"github.com/oirik/gosubcommand"
 	"github.com/pkg/errors"
-	"github.com/spicescode/gokenall"
+	"github.com/spicescode/gokenall/kenall/internal"
 )
 
 var (
@@ -63,7 +63,7 @@ func (download *downloadCommand) Execute(fs *flag.FlagSet) gosubcommand.ExitCode
 		w = f
 	}
 
-	if err := gokenall.Download(w, download.extract); err != nil {
+	if err := internal.Download(w, download.extract); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return gosubcommand.ExitCodeError
 	}
@@ -90,7 +90,7 @@ func (updated *updatedCommand) Execute(fs *flag.FlagSet) gosubcommand.ExitCode {
 		return gosubcommand.ExitCodeError
 	}
 
-	result, updatedTime, err := gokenall.Updated(t)
+	result, updatedTime, err := internal.Updated(t)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return gosubcommand.ExitCodeError
@@ -117,9 +117,9 @@ func (normalize *normalizeCommand) Summary() string {
 
 func (normalize *normalizeCommand) SetFlag(fs *flag.FlagSet) {
 	fs.StringVar(&normalize.output, "o", "", "Save file to <string> path instead of standard output.")
-	fs.BoolVar(&normalize.width, "width", (gokenall.DefaultNormalizeOption&gokenall.NormalizeWidth) != 0, "Convert hankaku kana into zenkaku, ascii letters into hankaku")
-	fs.BoolVar(&normalize.utf8, "utf8", (gokenall.DefaultNormalizeOption&gokenall.NormalizeUTF8) != 0, "Convert ShiftJIS into UTF8")
-	fs.BoolVar(&normalize.trim, "trim", (gokenall.DefaultNormalizeOption&gokenall.NormalizeTrim) != 0, "Trim spaces from each text")
+	fs.BoolVar(&normalize.width, "width", (internal.DefaultNormalizeOption&internal.NormalizeWidth) != 0, "Convert hankaku kana into zenkaku, ascii letters into hankaku")
+	fs.BoolVar(&normalize.utf8, "utf8", (internal.DefaultNormalizeOption&internal.NormalizeUTF8) != 0, "Convert ShiftJIS into UTF8")
+	fs.BoolVar(&normalize.trim, "trim", (internal.DefaultNormalizeOption&internal.NormalizeTrim) != 0, "Trim spaces from each text")
 }
 
 func (normalize *normalizeCommand) Execute(fs *flag.FlagSet) gosubcommand.ExitCode {
@@ -152,23 +152,23 @@ func (normalize *normalizeCommand) Execute(fs *flag.FlagSet) gosubcommand.ExitCo
 		w = f
 	}
 
-	option := gokenall.DefaultNormalizeOption
+	option := internal.DefaultNormalizeOption
 	if normalize.width {
-		option |= gokenall.NormalizeWidth
+		option |= internal.NormalizeWidth
 	} else {
-		option &^= gokenall.NormalizeWidth
+		option &^= internal.NormalizeWidth
 	}
 	if normalize.utf8 {
-		option |= gokenall.NormalizeUTF8
+		option |= internal.NormalizeUTF8
 	} else {
-		option &^= gokenall.NormalizeUTF8
+		option &^= internal.NormalizeUTF8
 	}
 	if normalize.trim {
-		option |= gokenall.NormalizeTrim
+		option |= internal.NormalizeTrim
 	} else {
-		option &^= gokenall.NormalizeTrim
+		option &^= internal.NormalizeTrim
 	}
-	if err := gokenall.Normalize(r, w, option); err != nil {
+	if err := internal.Normalize(r, w, option); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return gosubcommand.ExitCodeError
 	}

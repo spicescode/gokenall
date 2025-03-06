@@ -1,4 +1,4 @@
-package gokenall
+package internal
 
 import (
 	"archive/zip"
