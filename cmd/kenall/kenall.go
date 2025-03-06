@@ -7,9 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/oirik/gokenall"
 	"github.com/oirik/gosubcommand"
 	"github.com/pkg/errors"
+	"github.com/spicescode/gokenall"
 )
 
 var (
