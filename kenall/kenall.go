@@ -9,7 +9,7 @@ import (
 
 	"github.com/oirik/gosubcommand"
 	"github.com/pkg/errors"
-	"github.com/spicescode/gokenall/kenall/internal"
+	"github.com/spicescode/gokenall/internal"
 )
 
 var (
